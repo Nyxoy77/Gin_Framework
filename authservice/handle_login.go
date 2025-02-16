@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/nyxoy77/gin-framework/database"
@@ -12,6 +13,7 @@ import (
 
 func RegisterUser(c *gin.Context) {
 
+	time.Sleep(10 * time.Second)
 	var user models.User
 	if err := c.ShouldBindJSON(&user); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
