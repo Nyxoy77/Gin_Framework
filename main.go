@@ -11,12 +11,17 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	"github.com/nyxoy77/gin-framework/authservice"
 	"github.com/nyxoy77/gin-framework/database"
 	"github.com/nyxoy77/gin-framework/migrations"
 )
 
 func main() {
+	err := godotenv.Load("cmd/.env")
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 	fmt.Println("Learning GIN ")
 	database.InitDb()
 	migrations.RunMigrations()
