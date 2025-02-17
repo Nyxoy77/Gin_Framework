@@ -2,6 +2,7 @@ package authservice
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -18,8 +19,8 @@ func HandleLogin(c *gin.Context) {
 		})
 		return
 	}
-
-	query := "SELECT username,password from Users where email = $1"
+	fmt.Println(login)
+	query := "SELECT password from Users where email = $1"
 	var pass string
 	if err := database.DB.QueryRow(context.Background(), query, login.Email).Scan(&pass); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -27,6 +28,7 @@ func HandleLogin(c *gin.Context) {
 		})
 		return
 	}
+	fmt.Println(pass)
 	if login.Password == pass {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "Loggged in successfully",

@@ -24,6 +24,7 @@ func main() {
 	regRoutes := r.Group("/user")
 	{
 		regRoutes.POST("/register", authservice.RegisterUser)
+		regRoutes.POST("/login", authservice.HandleLogin)
 
 	}
 	// r.Run(":8080")
