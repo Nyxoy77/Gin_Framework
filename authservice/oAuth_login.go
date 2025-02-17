@@ -11,6 +11,8 @@ import (
 	"golang.org/x/oauth2/google"
 )
 
+// Get values from environment variables
+
 var googleOAuthConfig = &oauth2.Config{
 	ClientID:     os.Getenv("CLIENT_ID"),
 	ClientSecret: os.Getenv("CLIENT_SECRET"),
@@ -42,7 +44,12 @@ func HandleGoogleCallBack(c *gin.Context) {
 		})
 		return
 	}
-
+	if token.AccessToken == "" {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Invalid access token",
+		})
+		return
+	}
 	client := googleOAuthConfig.Client(context.Background(), token)
 	resp, err := client.Get("https://www.googleapis.com/oauth2/v2/userinfo")
 	if err != nil {
