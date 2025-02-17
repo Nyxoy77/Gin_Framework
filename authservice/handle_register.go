@@ -25,7 +25,9 @@ func RegisterUser(c *gin.Context) {
 	// Query to database
 	query := `INSERT into users(username,email,password) VALUES ($1,$2,$3) RETURNING id`
 	var userId int
-	if err := database.DB.QueryRow(context.Background(), query, user.Name, user.Email, user.Password).Scan(&userId); err != nil {
+	// To avoid sql injection we should not directly pass the query !
+	// The username and the email must be unique!
+	if err := database.DB.QueryRow(context.Background(), query, user.username, user.Email, user.Password).Scan(&userId); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"Error": "Failed to register the user",
 			"err":   err,
