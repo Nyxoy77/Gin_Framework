@@ -9,9 +9,9 @@ import (
 )
 
 var googleOAuthConfig = &oauth2.Config{
-	ClientID:     "625471794559-pqj6ka5n4a8si32nrs6s9urgi0t58m5r.apps.googleusercontent.com",
-	ClientSecret: "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",
-	RedirectURL:  "https://localhost:8081/user/oauth/callback",
+	ClientID:     "dada",
+	ClientSecret: "adada",
+	RedirectURL:  "adada",
 	Scopes:       []string{"https://www.googleapis.com/auth/userinfo.email"},
 	Endpoint:     google.Endpoint,
 }
